@@ -1,0 +1,47 @@
+name: Bug Report
+description: Create a report to help us improve
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        
+        Before continuing to make the issue, please make sure there are no similar issues on [the issue tracker](https://github.com/VermeilChan/VAE/issues). If there are, consider contributing your information there instead!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: 'Also tell me, what did you expect to happen? Please provide some reproduction steps: What did you do to trigger the bug?'
+      placeholder: A bug happened!
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+      placeholder: You can add images by clicking on the button in the bar that will appear once you click this textbox.
+    validations:
+      required: false
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: 'Add any other context about the problem here. If you are proficient at reading log files and think there is an especially relevant section, feel free to paste it in a code block here - that is not required, though.'
+    validations:
+      required: false
+  - type: input
+    id: what-os
+    attributes:
+      label: What Operating System are you using?
+      placeholder: ex. Windows, Linux, macOS
+    validations:
+      required: true
+  - type: input
+    id: gmh-version
+    attributes:
+      label: What version of VAE are you using?
+      placeholder: ex. GMH 2.0.0
+    validations:
+      required: true
