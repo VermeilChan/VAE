@@ -1,0 +1,49 @@
+name: Build macOS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-12
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8.10'
+          architecture: 'x64'
+
+      - name: Create virtual environment
+        run: python3 -m venv .venv
+
+      - name: Activate virtual environment
+        run: source .venv/bin/activate
+
+      - name: Install dependencies
+        run: pip install pyinstaller rarfile py7zr
+
+      - name: Build with PyInstaller
+        run: |
+          pyinstaller --noconfirm --onedir --console --name "VAE" --clean --optimize "2" --add-data "Src/extract_addons.py:." --add-data "Src/extract_archives.py:." --add-data "Src/Bin:Bin/"  "Src/cli.py
+
+      - name: Move Bin and Remove Gmad Windows/Linux
+        run: |
+          mv dist/VAE/Bin dist/VAE/
+          rm dist/VAE/Bin/Windows/gmad.exe
+          rm dist/VAE/Bin/macOS/gmad_linux
+
+      - name: Set build date
+        id: build_date
+        run: echo "timestamp=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VAE-Build-${{ steps.build_date.outputs.timestamp }}
+          path: dist/VAE
