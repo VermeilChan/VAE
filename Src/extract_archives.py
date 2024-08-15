@@ -37,7 +37,6 @@ def process_archive(archive, leftover_path):
 def main():
     start_time = time()
     archive_extensions = {".zip", ".rar", ".7z", ".tar"}
-    ignored_folders = {"Extracted-Addons", "Leftover", "_internal", "Bin"}
     current_directory = Path.cwd()
     leftover_path = current_directory / "Leftover"
     leftover_path.mkdir(exist_ok=True)
@@ -45,7 +44,8 @@ def main():
     archives = [
         file
         for file in current_directory.iterdir()
-        if file.suffix in archive_extensions and not any(ignored_folder in file.parts for ignored_folder in ignored_folders)
+        if file.suffix in archive_extensions
+        and file.name not in [f.name for f in leftover_path.iterdir()]
     ]
 
     with ThreadPoolExecutor() as executor:

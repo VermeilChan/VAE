@@ -1,9 +1,9 @@
-from os import rmdir
 from time import time
 from uuid import uuid4
 from shutil import move
 from pathlib import Path
 from platform import system
+from os import rmdir, walk, listdir, path
 from subprocess import run, CalledProcessError
 from concurrent.futures import ThreadPoolExecutor
 
@@ -27,11 +27,7 @@ def get_gmad_executable():
     return executable_path
 
 
-def extract_gma(gma_path, extracted_addons_path, leftover_path, gmad_executable, ignored_folders):
-    if any(ignored_folder in gma_path.parts for ignored_folder in ignored_folders):
-        print(f"Skipped extraction for {gma_path} (in ignored folder)")
-        return
-
+def extract_gma(gma_path, extracted_addons_path, leftover_path, gmad_executable):
     unique_name = uuid4().hex
     renamed_gma_path = gma_path.with_name(f"{unique_name}.gma")
 
@@ -55,29 +51,25 @@ def extract_gma(gma_path, extracted_addons_path, leftover_path, gmad_executable,
     except CalledProcessError:
         print(f"Extraction failed for {renamed_gma_path}")
 
-    gma_folder = gma_path.parent
-    if gma_folder != Path.cwd():
-        target_folder = leftover_path / gma_folder.name
-        if not target_folder.exists():
-            move(gma_folder, target_folder)
-
     move(renamed_gma_path, leftover_path / renamed_gma_path.name)
 
 
-def remove_empty_folders(root_path, ignored_folders):
-    for dirpath in root_path.glob("**/"):
-        if dirpath.name not in ignored_folders and not any(dirpath.iterdir()):
+def remove_empty_folders(directory):
+    for root, dirs, _ in walk(directory, topdown=False):
+        for dir_name in dirs:
+            dir_path = path.join(root, dir_name)
             try:
-                rmdir(dirpath)
-            except OSError:
-                pass
+                if not listdir(dir_path):
+                    rmdir(dir_path)
+            except FileNotFoundError:
+                print(f"Warning: The directory {dir_path} was not found.")
+            except OSError as e:
+                print(f"Error: Unable to remove {dir_path}: {e}")
 
 
 def main():
     start_time = time()
     current_directory = Path.cwd()
-
-    ignored_folders = {"Extracted-Addons", "Leftover", "_internal", "Bin"}
 
     extracted_addons_path = current_directory / "Extracted-Addons"
     leftover_path = current_directory / "Leftover"
@@ -87,17 +79,20 @@ def main():
 
     gmad_executable = get_gmad_executable()
 
-    gma_files = list(current_directory.rglob("*.gma"))
+    gma_files = [
+        file for file in current_directory.rglob("*.gma")
+        if file.parent != leftover_path
+    ]
 
     with ThreadPoolExecutor() as executor:
         executor.map(
             lambda gma_path: extract_gma(
-                gma_path, extracted_addons_path, leftover_path, gmad_executable, ignored_folders
+                gma_path, extracted_addons_path, leftover_path, gmad_executable
             ),
             gma_files,
         )
 
-    remove_empty_folders(current_directory, ignored_folders)
+    remove_empty_folders(current_directory)
 
     print(
         f"Processed {len(gma_files)} .gma files in {time() - start_time:.2f} seconds."
