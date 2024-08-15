@@ -34,9 +34,9 @@ jobs:
 
       - name: Move Bin and Remove Gmad Windows/macOS
         run: |
-          mv dist/VAE/_internal/Bin dist/VAE/
-          rm dist/VAE/_internal/Bin/Windows/gmad.exe
-          rm dist/VAE/_internal/Bin/macOS/gmad_osx
+          mv dist/VAE/_internal/Bin dist/VAE/Bin
+          rm -f dist/VAE/Bin/Windows/gmad.exe
+          rm -f dist/VAE/Bin/Darwin/gmad_osx
 
       - name: Set build date
         id: build_date
