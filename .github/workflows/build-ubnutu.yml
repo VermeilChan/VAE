@@ -18,6 +18,7 @@ jobs:
         with:
           python-version: '3.8.18'
           architecture: 'x64'
+          cache: 'pip'
 
       - name: Create virtual environment
         run: python3 -m venv .venv
