@@ -39,12 +39,8 @@ jobs:
           Remove-Item -Path 'dist\VAE\Bin\Linux\gmad_linux' -Force
           Remove-Item -Path 'dist\VAE\Bin\Darwin\gmad_osx' -Force
 
-      - name: Set build date
-        id: build_date
-        run: echo "timestamp=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: VAE-Build-${{ steps.build_date.outputs.timestamp }}
+          name: VAE-Development-Windows
           path: dist/VAE
