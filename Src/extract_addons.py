@@ -27,7 +27,11 @@ def get_gmad_executable():
     return executable_path
 
 
-def extract_gma(gma_path, extracted_addons_path, leftover_path, gmad_executable):
+def extract_gma(gma_path, extracted_addons_path, leftover_path, gmad_executable, ignored_folders):
+    if any(ignored_folder in gma_path.parts for ignored_folder in ignored_folders):
+        print(f"Skipped extraction for {gma_path} (in ignored folder)")
+        return
+
     unique_name = uuid4().hex
     renamed_gma_path = gma_path.with_name(f"{unique_name}.gma")
 
@@ -88,7 +92,7 @@ def main():
     with ThreadPoolExecutor() as executor:
         executor.map(
             lambda gma_path: extract_gma(
-                gma_path, extracted_addons_path, leftover_path, gmad_executable
+                gma_path, extracted_addons_path, leftover_path, gmad_executable, ignored_folders
             ),
             gma_files,
         )
