@@ -30,13 +30,13 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller --noconfirm --onedir --console --name "VAE --strip --clean --optimize "2" --add-data "Src/extract_addons.py:." --add-data "Src/extract_archives.py:." --add-data "Src/Bin:Bin/"  "Src/cli.py"
+          pyinstaller --noconfirm --onedir --console --name "VAE" --strip --clean --optimize "2" --add-data "Src/extract_addons.py:." --add-data "Src/extract_archives.py:." --add-data "Src/Bin:Bin/"  "Src/cli.py"
 
       - name: Move Bin and Remove Gmad Windows/Linux
         run: |
           mv dist/VAE/_internal/Bin dist/VAE/Bin
           rm -f dist/VAE/Bin/Linux/gmad_linux
-          rm -rf dist/VAE/Bin/Windows/gmad.exe
+          rm -r dist/VAE/Bin/Windows/gmad.exe
 
       - name: Set build date
         id: build_date
