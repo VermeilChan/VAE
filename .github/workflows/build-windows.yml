@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '.github/workflows/**'
+      - 'Src/**'
+      - 'version.txt'
 
 jobs:
   build:
@@ -36,11 +40,11 @@ jobs:
       - name: Move Bin and Remove Gmad Linux/macOS
         run: |
           Move-Item -Path 'dist\VAE\_internal\Bin' -Destination 'dist\VAE\Bin'
-          Remove-Item -Path 'dist\VAE\Bin\Linux\gmad_linux' -Force
-          Remove-Item -Path 'dist\VAE\Bin\Darwin\gmad_osx' -Force
+          Remove-Item -Path 'dist\VAE\Bin\Linux\fastgmad' -Force
+          Remove-Item -Path 'dist\VAE\Bin\Darwin\fastgmad' -Force
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: VAE-Development-Windows
+          name: VAE-2.x.x-Windows-x64
           path: dist/VAE
