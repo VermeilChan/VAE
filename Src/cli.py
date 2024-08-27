@@ -30,7 +30,7 @@ def main():
     try:
         while True:
             display_menu()
-            choice = input("Enter your choice (1/2/3): ").strip()
+            choice = input("Enter your choice (1-3): ").strip()
             handle_choice(choice)
     except KeyboardInterrupt:
         print("\nExiting...")
