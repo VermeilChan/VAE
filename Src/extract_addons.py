@@ -10,9 +10,9 @@ from concurrent.futures import ThreadPoolExecutor
 
 def get_gmad_executable():
     os_to_executable = {
-        "Windows": "gmad.exe",
-        "Darwin": "gmad_osx",
-        "Linux": "gmad_linux",
+        "Windows": "fastgmad.exe",
+        "Darwin": "fastgmad",
+        "Linux": "fastgmad",
     }
     executable_path = Path("Bin", system(), os_to_executable[system()])
 
