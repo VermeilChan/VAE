@@ -21,9 +21,11 @@ VAE supports the following platforms:
 | Linux            | Debian 12, Ubuntu 20.04, Fedora 38, Arch Linux, OpenSUSE | 64-bit (x86-64) |
 | macOS            | macOS 14, 13, 12, 11, 10.15                              | 64-bit (x86-64) |
 
+_Windows 7 is technically supported, but you need PyInstaller 4.10._
+
 # Getting the Source Code
 
-- Download the zip archive from the [latest release](https://github.com/VermeilChan/VAE/releases/latest). `VAE-v2.x.x-Source-x64.zip`
+- Download the zip archive from the [latest release](https://github.com/VermeilChan/VAE/releases/latest). `VAE-2.x.x-Source-x64.zip`
 
 # Dependencies
 

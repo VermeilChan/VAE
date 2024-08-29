@@ -25,9 +25,9 @@
 
 To install VAE, download the [latest release](https://github.com/VermeilChan/VAE/releases/latest).
 
-- **Windows:** `VAE-v2.x.x-Windows-x64.7z`
-- **Linux:** `VAE-v2.x.x-Linux-x64.tar.xz`
-- **macOS:** `VAE-v2.x.x-macOS-x64.zip`
+- **Windows:** `VAE-2.x.x-Windows-x64.7z`
+- **Linux:** `VAE-2.x.x-Linux-x64.tar.xz`
+- **macOS:** `VAE-2.x.x-macOS-x64.zip`
 
 ## Usage
 
