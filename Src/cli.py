@@ -5,6 +5,7 @@ from extract_archives import main as extract_archives
 
 version = "v2.0.4"
 
+
 def display_menu():
     print(
         f"Vermeil's Addon Extractor {version}, {system()} ({architecture()[0]})\n"
@@ -14,17 +15,15 @@ def display_menu():
         "3. Exit"
     )
 
+
 def handle_choice(choice):
-    options = {
-        "1": extract_addons,
-        "2": extract_archives,
-        "3": sys.exit
-    }
-    
+    options = {"1": extract_addons, "2": extract_archives, "3": sys.exit}
+
     if choice in options:
         options[choice]()
     else:
         print("Invalid choice. Please enter 1, 2, or 3.")
+
 
 def main():
     try:
@@ -35,6 +34,7 @@ def main():
     except KeyboardInterrupt:
         print("\nExiting...")
         sys.exit(0)
+
 
 if __name__ == "__main__":
     main()
