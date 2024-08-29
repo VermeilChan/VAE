@@ -40,19 +40,15 @@ To install VAE, download the [latest release](https://github.com/VermeilChan/VAE
 
 ### Step 2: Run the Program
 
-Upon launching the program, you will be presented with three options:
+Upon launching the program, you will be presented with two options:
 
-1. **Extract Addons (GMA)**
-2. **Extract Archives (ZIP, RAR, 7Z, TAR)**
-3. **Exit**
-
-#### Option 1: Extract Addons (GMA)
+#### Option 1: Extract Addons
 
 - This option scans the current directory and subdirectories for `.gma` files and extracts them using `fastgmad`.
   - Navigate to the `Extracted-Addons` folder, and copy the folders to your Garry's Mod directory. Enjoy your addons!
   - If you want to free up some space, you can remove the `Leftover` folder, which contains the `.gma` and archives.
 
-#### Option 2: Extract Archives (ZIP, RAR, 7Z, TAR)
+#### Option 2: Extract Archives
 
 - This option scans the current directory for archive files (e.g., `.zip`, `.rar`, `.7z`, `.tar`) and extracts them.
 - The original archive files are moved to the `Leftover` directory after extraction.
@@ -71,12 +67,8 @@ This project is licensed under the [GNU General Public License v3.0](LICENSE).
 
 ## Credits
 
-- **[Adamizo](https://github.com/adamizo):** The dumbest person I know.
-- **[PyInstaller](https://www.pyinstaller.org/):** Used for creating standalone executables.
+- **[Adamizo](https://github.com/adamizo):** The dumbest person I know. (the main reason why this program exist in first place)
+- **[PyInstaller](https://www.pyinstaller.org/):** For creating standalone executables.
 - **[Py7zr](https://pypi.org/project/py7zr/):** For 7z file extraction.
 - **[RarFile](https://pypi.org/project/rarfile/):** For rar file extraction.
 - **[FastGMAD](https://github.com/WilliamVenner/fastgmad):** Fast reimplementation of gmad.
-
-## TODO
-
-- Add support for legacy (.bin) addons.
