@@ -1,14 +1,14 @@
 # Vermeil's Addon Extractor (VAE)
 
-**Vermeil's Addon Extractor (VAE)** is a user-friendly utility designed to simplify the extraction of Garry's Mod (GMod) addons and various archive formats. Whether you're using SteamCMD, downloading addons from third-party websites, or managing addons without owning the game, VAE streamlines the extraction process, making it both fast and hassle-free.
+**Vermeil's Addon Extractor (VAE)** is a user-friendly utility designed to simplify the extraction of Garry's Mod addons and various archive formats. Whether you're using SteamCMD, downloading addons from third-party websites, or managing addons without owning the game, VAE streamlines the extraction process, making it fast and hassle-free.
 
 ## Features
 
-- **Cross-Platform Compatibility:** Works on Windows, macOS, and Linux.
-- **Support for Multiple Archive Formats:** Easily extracts `.zip`, `.rar`, `.7z`, and `.tar` files.
-- **Automatic Handling:** Effortlessly processes `.gma` files and archives.
-- **Fast and Efficient:** Utilizes multi-threading for quicker extraction.
-- **Easy to Use:** Simple command-line interface for straightforward operation.
+- 🖥️ Cross-Platform Compatibility: Works on Windows, macOS, and Linux.
+- 📦 Support for Multiple Archive Formats: Easily extracts `.zip`, `.rar`, `.7z`, and `.tar` files.
+- 🔄 Automatic Handling: Effortlessly processes `.gma` files and archives.
+- ⚡ Fast and Efficient: Utilizes multi-threading for quicker extraction.
+- 🛠️ Easy to Use: Simple command-line interface for straightforward operation.
 
 ## Requirements
 
@@ -23,7 +23,7 @@
 
 ## Installation
 
-To install VAE, download the [latest release](https://github.com/VermeilChan/VAE/releases/latest) for your operating system:
+To install VAE, download the [latest release](https://github.com/VermeilChan/VAE/releases/latest).
 
 - **Windows:** `VAE-v2.x.x-Windows-x64.7z`
 - **Linux:** `VAE-v2.x.x-Linux-x64.tar.xz`
@@ -33,10 +33,10 @@ To install VAE, download the [latest release](https://github.com/VermeilChan/VAE
 
 ### Step 1: Extract the Downloaded Archive
 
-1. Extract the contents of the downloaded archive specific to your operating system.
+1. Extract the contents of VAE.
 2. Copy the extracted content to the directory where your addons are located. For example:
    - **SteamCMD Path:** `path-to-steamcmd/steamapps/workshop/content/4000`
-   - **3rd Party Websites/Programs:** Place VAE in the directory containing your archives or folders. VAE will scan both the current directory and any subdirectories.
+   - **3rd Party Websites/Programs:** Place VAE in the directory containing your archives or folders. VAE will scan the current directory and any subdirectories.
 
 ### Step 2: Run the Program
 
@@ -49,8 +49,7 @@ Upon launching the program, you will be presented with three options:
 #### Option 1: Extract Addons (GMA)
 
 - This option scans the current directory and subdirectories for `.gma` files and extracts them using `fastgmad`.
-- Two new folders will be created: `Extracted-Addons` and `Leftover`.
-  - Navigate to the `Extracted-Addons` folder, and copy the folders to your Garry's Mod directory. Enjoy your newly extracted addons!
+  - Navigate to the `Extracted-Addons` folder, and copy the folders to your Garry's Mod directory. Enjoy your addons!
   - If you want to free up some space, you can remove the `Leftover` folder, which contains the `.gma` and archives.
 
 #### Option 2: Extract Archives (ZIP, RAR, 7Z, TAR)
