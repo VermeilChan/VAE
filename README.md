@@ -48,7 +48,7 @@ Upon launching the program, you will be presented with three options:
 
 #### Option 1: Extract Addons (GMA)
 
-- This option scans the current directory and subdirectories for `.gma` files and extracts them using `gmad`.
+- This option scans the current directory and subdirectories for `.gma` files and extracts them using `fastgmad`.
 - Two new folders will be created: `Extracted-Addons` and `Leftover`.
   - Navigate to the `Extracted-Addons` folder, and copy the folders to your Garry's Mod directory. Enjoy your newly extracted addons!
   - If you want to free up some space, you can remove the `Leftover` folder, which contains the `.gma` and archives.
@@ -76,6 +76,7 @@ This project is licensed under the [GNU General Public License v3.0](LICENSE).
 - **[PyInstaller](https://www.pyinstaller.org/):** Used for creating standalone executables.
 - **[Py7zr](https://pypi.org/project/py7zr/):** For 7z file extraction.
 - **[RarFile](https://pypi.org/project/rarfile/):** For rar file extraction.
+- **[FastGMAD](https://github.com/WilliamVenner/fastgmad):** Fast reimplementation of gmad.
 
 ## TODO
 
