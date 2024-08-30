@@ -1,14 +1,15 @@
 # Vermeil's Addon Extractor (VAE)
 
-**Vermeil's Addon Extractor (VAE)** is a user-friendly utility designed to simplify the extraction of Garry's Mod addons and various archive formats. Whether you're using SteamCMD, downloading addons from third-party websites, or managing addons without owning the game, VAE streamlines the extraction process, making it fast and hassle-free.
+**VAE** is a command-line tool for users of Garry's Mod who need to extract content from addon files. This utility supports both modern `.gma` addons and legacy `.bin` addons, making it an essential tool for players who download addons from sources such as SteamCMD, third-party programs, websites, or for those using cracked versions of the game.
 
 ## Features
 
-- 🖥️ Cross-Platform Compatibility: Works on Windows, macOS, and Linux.
-- 📦 Support for Multiple Archive Formats: Easily extracts `.zip`, `.rar`, `.7z`, and `.tar` files.
-- 🔄 Automatic Handling: Effortlessly processes `.gma` files and archives.
-- ⚡ Fast and Efficient: Utilizes multi-threading for quicker extraction.
-- 🛠️ Easy to Use: Simple command-line interface for straightforward operation.
+- 🖥️ Cross-Platform: Works on Windows, macOS, and Linux.
+- 📦 Addon Extraction: Extract both modern `.gma` and legacy `.bin` addon formats.
+- 🔄 Archive Extraction: Supports archive formats (`.zip`, `.rar`, `.7z`, `.tar`).
+- ⚡ Multithreading: Utilizes concurrent processing to speed up extraction.
+- 🛠️ Easy to Use: A simple command-line interface.
+- 🔄 GWTool Replacement: **VAE** is a drop-in replacement for GWTool.
 
 ## Requirements
 
@@ -44,9 +45,9 @@ Upon launching the program, you will be presented with two options:
 
 #### Option 1: Extract Addons
 
-- This option scans the current directory and subdirectories for `.gma` files and extracts them using `fastgmad`.
+- This option scans the current directory and subdirectories for `.gma` and `.bin` files and extracts them using `fastgmad`.
   - Navigate to the `Extracted-Addons` folder, and copy the folders to your Garry's Mod directory. Enjoy your addons!
-  - If you want to free up some space, you can remove the `Leftover` folder, which contains the `.gma` and archives.
+  - If you want to free up some space, you can remove the `Leftover` folder, which contains the `.gma` and `.bin` and archives.
 
 #### Option 2: Extract Archives
 
@@ -72,3 +73,4 @@ This project is licensed under the [GNU General Public License v3.0](LICENSE).
 - **[Py7zr](https://pypi.org/project/py7zr/):** For 7z file extraction.
 - **[RarFile](https://pypi.org/project/rarfile/):** For rar file extraction.
 - **[FastGMAD](https://github.com/WilliamVenner/fastgmad):** Fast reimplementation of gmad.
+- **[7zip](https://www.7-zip.org/):** For extracting .bin files.
