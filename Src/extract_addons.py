@@ -1,9 +1,9 @@
+from os import walk
 from time import time
 from uuid import uuid4
 from shutil import move
 from pathlib import Path
 from platform import system
-from os import walk
 from subprocess import run, CalledProcessError
 from concurrent.futures import ThreadPoolExecutor
 
@@ -19,7 +19,7 @@ def get_executable(executable_name):
         executable_path = Path(
             input(
                 f"{executable_name} not found.\nProvide the path to {executable_name} executable: "
-            )
+            ).strip()
         )
         if not executable_path.exists():
             raise FileNotFoundError(f"Executable not found: {executable_path}")
@@ -69,8 +69,8 @@ def extract_gma_bin(
                         seven_zip_executable,
                     )
         print(f"Extracted: {renamed_file_path}")
-    except CalledProcessError:
-        print(f"Extraction failed for {renamed_file_path}")
+    except CalledProcessError as e:
+        print(f"Extraction failed for {renamed_file_path}: {e}")
 
     move(renamed_file_path, leftover_path / renamed_file_path.name)
 
