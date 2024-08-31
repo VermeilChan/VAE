@@ -41,8 +41,8 @@ jobs:
         run: |
           Move-Item -Path 'dist\VAE\_internal\Bin' -Destination 'dist\VAE\Bin'
           Remove-Item -Path 'dist\VAE\Bin\Linux\fastgmad' -Force
-          Remove-Item -Path 'dist\VAE\Bin\Darwin\fastgmad' -Force
           Remove-Item -Path 'dist\VAE\Bin\Linux\7za' -Force
+          Remove-Item -Path 'dist\VAE\Bin\Darwin\fastgmad' -Force
           Remove-Item -Path 'dist\VAE\Bin\Darwin\7za' -Force
 
       - name: Upload artifact

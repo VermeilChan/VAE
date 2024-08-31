@@ -41,10 +41,10 @@ jobs:
         run: |
           mv dist/VAE/_internal/Bin dist/VAE/Bin
           rm -f dist/VAE/Bin/Windows/fastgmad.exe
-          rm -f dist/VAE/Bin/Darwin/fastgmad
           rm -f dist/VAE/Bin/Windows/7za.exe
           rm -f dist/VAE/Bin/Windows/7za.dll
           rm -f dist/VAE/Bin/Windows/7zxa.dll
+          rm -f dist/VAE/Bin/Darwin/fastgmad
           rm -f dist/VAE/Bin/Darwin/7za
 
       - name: Upload artifact
