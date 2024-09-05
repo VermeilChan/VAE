@@ -3,7 +3,7 @@ from platform import system, architecture
 from extract_addons import main as extract_addons
 from extract_archives import main as extract_archives
 
-version = "v2.2.0"
+version = "v2.2.1"
 
 
 def display_menu():
