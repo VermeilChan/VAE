@@ -19,7 +19,7 @@ VAE supports the following platforms:
 |------------------|----------------------------------------------------------|-----------------|
 | Windows          | 11, 10, 8.1, 8                                           | 64-bit (x86-64) |
 | Linux            | Debian 12, Ubuntu 20.04, Fedora 38, Arch Linux, OpenSUSE | 64-bit (x86-64) |
-| macOS            | macOS 14, 13, 12, 11, 10.15                              | 64-bit (x86-64) |
+| macOS            | macOS 15 ,14, 13, 12, 11, 10.15                          | 64-bit (x86-64) |
 
 _Windows 7 is technically supported, but you need PyInstaller 4.10._
 
@@ -33,9 +33,9 @@ _Windows 7 is technically supported, but you need PyInstaller 4.10._
 You need the following to compile VAE:
 
 - [Python](https://www.python.org/) 3.8+
-- [PyInstaller](https://www.pyinstaller.org/) 6.6.0+
-- [Py7zr](https://pypi.org/project/py7zr/)
-- [RarFile](https://pypi.org/project/rarfile/)
+- [PyInstaller](https://www.pyinstaller.org/) 6.10.0+
+- [Py7zr](https://pypi.org/project/py7zr/) 0.22.0+
+- [RarFile](https://pypi.org/project/rarfile/) 4.2+
 
 ## Linux Dependencies
 
