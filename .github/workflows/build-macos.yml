@@ -37,7 +37,7 @@ jobs:
         run: |
           pyinstaller --noconfirm --onedir --console --name "VAE" --strip --clean --optimize "2" --add-data "Src/extract_addons.py:." --add-data "Src/extract_archives.py:." --add-data "Src/Bin:Bin/"  "Src/cli.py"
 
-      - name: Move Bin and Remove Gmad Windows/Linux
+      - name: Move Bin and Remove Gmad And 7zip Windows/Linux
         run: |
           mv dist/VAE/_internal/Bin dist/VAE/Bin
           rm -r dist/VAE/Bin/Windows/fastgmad.exe
@@ -50,5 +50,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: VAE-2.x.x-MacOS-x64
+          name: VAE-2.x.x-macOS-x64
           path: dist/VAE

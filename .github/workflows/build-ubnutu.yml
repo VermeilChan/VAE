@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
@@ -37,7 +37,7 @@ jobs:
         run: |
           pyinstaller --noconfirm --onedir --console --name "VAE" --strip --clean --optimize "2" --add-data "Src/extract_addons.py:." --add-data "Src/extract_archives.py:." --add-data "Src/Bin:Bin/"  "Src/cli.py"
 
-      - name: Move Bin and Remove Gmad Windows/macOS
+      - name: Move Bin and Remove Gmad And 7zip Windows/macOS
         run: |
           mv dist/VAE/_internal/Bin dist/VAE/Bin
           rm -f dist/VAE/Bin/Windows/fastgmad.exe
