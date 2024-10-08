@@ -9,7 +9,7 @@
 - 🔄 Archive Extraction: Supports archive formats (`.zip`, `.rar`, `.7z`, `.tar`).
 - ⚡ Multithreading: Utilizes concurrent processing to speed up extraction.
 - 🛠️ Easy to Use: A simple command-line interface.
-- 🔄 GWTool Replacement: **VAE** is a drop-in replacement for GWTool.
+- 🔄 GWTool Replacement: **VAE** is a drop-in replacement for GWTool. _(I think)_
 
 ## Requirements
 
@@ -17,7 +17,7 @@
 |------------------|----------------------------------------------------------|-----------------|
 | Windows          | 11, 10, 8.1, 8                                           | 64-bit (x86-64) |
 | Linux            | Debian 12, Ubuntu 20.04, Fedora 38, Arch Linux, OpenSUSE | 64-bit (x86-64) |
-| macOS            | macOS 14, 13, 12, 11, 10.15                              | 64-bit (x86-64) |
+| macOS            | macOS 15, 14, 13, 12, 11, 10.15                          | 64-bit (x86-64) |
 
 - **RAM Usage:** 20MB
 - **Disk Space:** 25MB
