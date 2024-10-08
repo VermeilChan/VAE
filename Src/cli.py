@@ -3,7 +3,7 @@ from platform import system, architecture
 from extract_addons import main as extract_addons
 from extract_archives import main as extract_archives
 
-version = "v2.2.1"
+version = "v2.2.2"
 
 
 def display_menu():
@@ -23,7 +23,7 @@ def display_help():
     print(
         "\nHelp:\n"
         "1. Extract addons - Extracts GMA and BIN addon files.\n"
-        "2. Extract archives - Extracts various archive formats (ZIP, RAR, 7Z, TAR).\n"
+        "2. Extract archives - Extracts archive formats (ZIP, RAR, 7Z, TAR). Mainly for 3rd party\n"
         "3. Exit - Closes the application.\n"
     )
 
