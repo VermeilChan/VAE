@@ -46,7 +46,8 @@ def handle_choice(choice):
 
 def get_linux_info():
     with open("/etc/os-release") as f:
-        return dict(line.strip().split('=') for line in f)
+        os_info = dict(line.strip().split('=') for line in f)
+    return os_info.get("PRETTY_NAME") or system(), os_info.get("VERSION") or release()
 
 def get_os_info():
     os_name = system()
