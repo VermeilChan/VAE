@@ -7,14 +7,17 @@ from extract_archives import main as extract_archives
 
 version = f"v2.2.2 ({uuid4().hex[:7]})"
 build_date = datetime.now().strftime("%Y-%m-%d (%A, %B %d, %Y)")
+rarfile_version = "4.2"
+py7zr_version = "0.22.0"
+pyinstaller_version = "6.11.1"
+seven_zip_version = "24.08"
 
 def display_menu():
     system_info = get_os_info()
     print(
-        f"{'=' * 70}\n"
-        f"Vermeil's Addon Extractor {version}, {system_info} ({architecture()[0]}).\nBuild Date: {build_date}.\n"
-        ""
-        f"{'=' * 70}\n"
+        f"{'=' * 75}\n"
+        f"Vermeil's Addon Extractor {version}, {system_info} ({architecture()[0]}).\nBuild Date: {build_date}.\nBuild Info: Pyinstaller {pyinstaller_version}, Py7zr {py7zr_version}, RarFile {rarfile_version}, 7zip {seven_zip_version}.\n"
+        f"{'=' * 75}\n"
         "Select an option:\n"
         "1. Extract addons (GMA, BIN)\n"
         "2. Extract archives (ZIP, RAR, 7Z, TAR)\n"
