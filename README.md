@@ -17,7 +17,7 @@
 |------------------|----------------------------------------------------------|--------------|
 | Windows          | 11, 10, 8.1, 8                                           | 64-bit       |
 | Linux            | Debian 12, Ubuntu 22.04, Fedora 41, Arch Linux, OpenSUSE | 64-bit       |
-| macOS            | macOS 15, 14, 13, 12, 11, 10.15                          | 64-bit       |
+| macOS            | macOS 15, 14, 13, 12, 11, 10.15                          | Arm64        |
 
 - **RAM Usage:** 20MB
 - **Disk Space:** 25MB
@@ -28,7 +28,7 @@ To install VAE, download the [latest release](https://github.com/VermeilChan/VAE
 
 - **Windows:** `VAE-2.x.x-Windows-x64.7z`
 - **Linux:** `VAE-2.x.x-Linux-x64.tar.xz`
-- **macOS:** `VAE-2.x.x-macOS-x64.zip`
+- **macOS:** `VAE-2.x.x-macOS-Arm64.zip`
 
 ## Usage
 
