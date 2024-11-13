@@ -11,7 +11,7 @@ build_date = datetime.now().strftime("%Y-%m-%d (%A, %B %d, %Y)")
 def display_menu():
     system_info = get_os_info()
     print(
-        f"\n{'=' * 70}\n"
+        f"{'=' * 70}\n"
         f"Vermeil's Addon Extractor {version}, {system_info} ({architecture()[0]}).\nBuild Date: {build_date}.\n"
         ""
         f"{'=' * 70}\n"
