@@ -17,6 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Get Shortened Commit SHA
+        id: shorten_commit_sha
+        uses: iendeavor/shorten-commit-sha@v2.0.0
+        with:
+          length: 7
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -37,16 +43,16 @@ jobs:
         run: |
           pyinstaller --noconfirm --onedir --console --icon "Src/Icon/VAE.ico" --name "VAE" --clean --optimize "2" --version-file "version.txt" --add-data "Src/extract_addons.py;." --add-data "Src/extract_archives.py;." --add-data "Src/Bin;Bin/"  "Src/cli.py"
 
-      - name: Move Bin and Remove Gmad And 7zip Linux/macOS
+      - name: Move Bin and Remove Gmad And 7-zip Linux/macOS
         run: |
           Move-Item -Path 'dist\VAE\_internal\Bin' -Destination 'dist\VAE\Bin'
           Remove-Item -Path 'dist\VAE\Bin\Linux\fastgmad' -Force
           Remove-Item -Path 'dist\VAE\Bin\Darwin\fastgmad' -Force
-          Remove-Item -Path 'dist\VAE\Bin\Linux\7za' -Force
-          Remove-Item -Path 'dist\VAE\Bin\Darwin\7za' -Force
+          Remove-Item -Path 'dist\VAE\Bin\Linux\7zz' -Force
+          Remove-Item -Path 'dist\VAE\Bin\Darwin\7zz' -Force
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: VAE-2.x.x-Windows-x64
+          name: VAE-${{ steps.shorten_commit_sha.outputs.shortened_commit_sha }}-Windows-x64
           path: dist/VAE
