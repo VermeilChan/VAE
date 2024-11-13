@@ -18,8 +18,8 @@ VAE supports the following platforms:
 | Operating System | Supported Versions                                       | Architecture    |
 |------------------|----------------------------------------------------------|-----------------|
 | Windows          | 11, 10, 8.1, 8                                           | 64-bit (x86-64) |
-| Linux            | Debian 12, Ubuntu 20.04, Fedora 38, Arch Linux, OpenSUSE | 64-bit (x86-64) |
-| macOS            | macOS 15 ,14, 13, 12, 11, 10.15                          | 64-bit (x86-64) |
+| Linux            | Debian 12, Ubuntu 22.04, Fedora 41, Arch Linux, OpenSUSE | 64-bit (x86-64) |
+| macOS            | macOS 15 ,14, 13, 12, 11, 10.15                          | Arm64           |
 
 _Windows 7 is technically supported, but you need PyInstaller 4.10._
 
@@ -33,7 +33,7 @@ _Windows 7 is technically supported, but you need PyInstaller 4.10._
 You need the following to compile VAE:
 
 - [Python](https://www.python.org/) 3.8+
-- [PyInstaller](https://www.pyinstaller.org/) 6.10.0+
+- [PyInstaller](https://www.pyinstaller.org/) 6.11.1+
 - [Py7zr](https://pypi.org/project/py7zr/) 0.22.0+
 - [RarFile](https://pypi.org/project/rarfile/) 4.2+
 
@@ -69,18 +69,7 @@ pip install -r requirements.txt
 pyinstaller --noconfirm --onedir --console --icon "Src/Icon/VAE.ico" --name "VAE" --clean --optimize "2" --version-file "version.txt" --add-data "Src/extract_addons.py;." --add-data "Src/extract_archives.py;." --add-data "Src/Bin;Bin/"  "Src/cli.py"
 ```
 
-## Linux
-
-In Terminal:
-```sh
-cd VAE
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-pyinstaller --noconfirm --onedir --console --name "VAE" --clean --optimize "2" --strip --add-data "Src/extract_addons.py:." --add-data "Src/extract_archives.py:." --add-data "Src/Bin:Bin/"  "Src/cli.py"
-```
-
-## macOS
+## Linux/macOS
 
 In Terminal:
 ```sh
