@@ -1,59 +1,62 @@
 from time import time
 from uuid import uuid4
-from pathlib import Path
 from zipfile import ZipFile
 from rarfile import RarFile
 from py7zr import SevenZipFile
 from tarfile import open as TarFile
+from multiprocessing import cpu_count
 from concurrent.futures import ThreadPoolExecutor
+from os import path, makedirs, rename, getcwd, listdir
 
+excluded_directories = {"Bin", "Leftover", "_internal"}
+archive_handlers = {
+    ".zip": ZipFile,
+    ".rar": RarFile,
+    ".7z": SevenZipFile,
+    ".tar": TarFile,
+    ".gz": TarFile,
+    ".xz": TarFile,
+}
 
 def extract_archive(archive_path, extract_path):
+    ext = path.splitext(archive_path)[1]
+    archive_handler = archive_handlers.get(ext)
+
     try:
-        if archive_path.suffix == ".zip":
-            with ZipFile(archive_path, "r") as archive:
-                archive.extractall(extract_path)
-        elif archive_path.suffix == ".rar":
-            with RarFile(archive_path, "r") as archive:
-                archive.extractall(extract_path)
-        elif archive_path.suffix == ".7z":
-            with SevenZipFile(archive_path, "r") as archive:
-                archive.extractall(extract_path)
-        elif archive_path.suffix == ".tar":
-            with TarFile(archive_path, "r") as archive:
-                archive.extractall(extract_path)
+        with archive_handler(archive_path, "r") as archive:
+            archive.extractall(extract_path)
     except Exception as e:
         print(f"Failed to extract {archive_path}: {e}")
 
-
 def process_archive(archive, leftover_path):
     unique_name = uuid4().hex
-    extract_path = archive.parent / unique_name
-    extract_path.mkdir(exist_ok=True)
+    extract_path = path.join(path.dirname(archive), unique_name)
+    makedirs(extract_path, exist_ok=True)
     extract_archive(archive, extract_path)
-    archive.rename(leftover_path / archive.name)
-
+    rename(archive, path.join(leftover_path, path.basename(archive)))
 
 def main():
     start_time = time()
-    archive_extensions = {".zip", ".rar", ".7z", ".tar"}
-    current_directory = Path.cwd()
-    leftover_path = current_directory / "Leftover"
-    leftover_path.mkdir(exist_ok=True)
+    archive_format = set(archive_handlers.keys())
+    current_directory = getcwd()
+    leftover_path = path.join(current_directory, "Leftover")
+    makedirs(leftover_path, exist_ok=True)
 
     archives = [
-        file
-        for file in current_directory.iterdir()
-        if file.suffix in archive_extensions
-        and file.name not in [f.name for f in leftover_path.iterdir()]
+        path.join(current_directory, file)
+        for file in listdir(current_directory)
+        if path.isfile(path.join(current_directory, file)) and
+        any(file.endswith(ext) for ext in archive_format) and
+        not any(excluded_directory in path.join(current_directory, file).split(path.sep) for excluded_directory in excluded_directories)
     ]
 
-    with ThreadPoolExecutor() as executor:
+    num_cores = cpu_count()
+
+    with ThreadPoolExecutor(max_workers=num_cores) as executor:
         executor.map(lambda archive: process_archive(archive, leftover_path), archives)
 
     end_time = time()
     print(f"Processed {len(archives)} archives in {end_time - start_time:.2f} seconds.")
-
 
 if __name__ == "__main__":
     main()
