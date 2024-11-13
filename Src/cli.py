@@ -16,7 +16,7 @@ def display_menu():
     system_info = get_os_info()
     print(
         f"{'=' * 75}\n"
-        f"Vermeil's Addon Extractor {version}, {system_info} ({architecture()[0]}).\nBuild Date: {build_date}.\nBuild Info: Pyinstaller {pyinstaller_version}, Py7zr {py7zr_version}, RarFile {rarfile_version}, 7zip {seven_zip_version}.\n"
+        f"Vermeil's Addon Extractor {version}, {system_info} ({architecture()[0]}).\nBuild Date: {build_date}.\nBuild Info: Pyinstaller {pyinstaller_version}, Py7zr {py7zr_version}, RarFile {rarfile_version}, 7-zip {seven_zip_version}.\n"
         f"{'=' * 75}\n"
         "Select an option:\n"
         "1. Extract addons (GMA, BIN)\n"
