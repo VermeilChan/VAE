@@ -12,12 +12,19 @@ py7zr_version = "0.22.0"
 pyinstaller_version = "6.11.1"
 seven_zip_version = "24.08"
 
-def display_menu():
+def display_info():
     system_info = get_os_info()
     print(
         f"{'=' * 75}\n"
-        f"Vermeil's Addon Extractor {version}, {system_info} ({architecture()[0]}).\nBuild Date: {build_date}.\nBuild Info: Pyinstaller {pyinstaller_version}, Py7zr {py7zr_version}, RarFile {rarfile_version}, 7-zip {seven_zip_version}.\n"
+        f"Vermeil's Addon Extractor {version}, {system_info} ({architecture()[0]}).\n"
+        f"Build Date: {build_date}.\n"
+        f"Build Info: Pyinstaller {pyinstaller_version}, Py7zr {py7zr_version}, "
+        f"RarFile {rarfile_version}, 7-zip {seven_zip_version}.\n"
         f"{'=' * 75}\n"
+    )
+
+def display_menu():
+    print(
         "Select an option:\n"
         "1. Extract addons (GMA, BIN)\n"
         "2. Extract archives (ZIP, RAR, 7Z, TAR)\n"
@@ -58,6 +65,7 @@ def get_os_info():
 
 def main():
     try:
+        display_info()
         while True:
             display_menu()
             choice = input("Enter your choice (1-4): ").strip()
