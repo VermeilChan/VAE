@@ -1,6 +1,6 @@
 # Vermeil's Addon Extractor (VAE)
 
-**VAE** is a command-line tool for users of Garry's Mod who need to extract content from addon files. This utility supports both modern `.gma` addons and legacy `.bin` addons, making it an essential tool for players who download addons from sources such as SteamCMD, third-party programs, websites, or for those using cracked versions of the game.
+**VAE** is a command-line tool for users of Garry's Mod who need to extract content from addon files. This utility supports both modern `.gma` addons and legacy `.bin` addons, an essential tool for players who download addons from sources such as SteamCMD, third-party programs, websites, or for those using cracked versions of the game.
 
 ## Features
 
@@ -72,5 +72,5 @@ This project is licensed under the [GNU General Public License v3.0](LICENSE).
 - **[PyInstaller](https://www.pyinstaller.org/):** For creating standalone executables.
 - **[Py7zr](https://pypi.org/project/py7zr/):** For 7z file extraction.
 - **[RarFile](https://pypi.org/project/rarfile/):** For rar file extraction.
-- **[FastGMAD](https://github.com/WilliamVenner/fastgmad):** Fast reimplementation of gmad.
+- **[FastGMAD](https://github.com/WilliamVenner/fastgmad):** Fast reimplementation of gmad. (Forked)
 - **[7zip](https://www.7-zip.org/):** For extracting .bin files.
