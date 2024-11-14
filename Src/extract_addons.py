@@ -1,119 +1,99 @@
-from time import time
 from uuid import uuid4
 from shutil import move
 from platform import system
-from subprocess import run, CalledProcessError
+from subprocess import run, DEVNULL
+from multiprocessing import cpu_count
 from concurrent.futures import ThreadPoolExecutor
-from os import path, rename, listdir, makedirs, walk, getcwd, rmdir
+from os import path, scandir, rename, makedirs, rmdir, listdir
 
-def get_executable(executable_name):
-    os_to_executable = {
-        "Windows": f"{executable_name}.exe",
-        "Darwin": executable_name,
-        "Linux": executable_name,
+current_platform = system()
+
+def get_executable_paths():
+    base_path = 'Bin'
+    platform_paths = {
+        'Windows': {'7zz': '7zz.exe', 'fastgmad': 'fastgmad.exe'},
+        'Linux': {'7zz': '7zz', 'fastgmad': 'fastgmad'},
+        'Darwin': {'7zz': '7zz', 'fastgmad': 'fastgmad'}
     }
-    executable_path = path.join("Bin", system(), os_to_executable[system()])
-    
-    if not path.exists(executable_path):
-        executable_path = input(
-            f"{executable_name} not found.\nProvide the path to {executable_name} executable: "
-        ).strip()
-        
-        if not path.exists(executable_path):
-            raise FileNotFoundError(f"Executable not found: {executable_path}")
-    
-    return executable_path
 
-def extract_gma_bin(
-    file_path,
-    extracted_addons_path,
-    leftover_path,
-    gmad_executable,
-    seven_zip_executable,
-):
-    unique_name = uuid4().hex
-    renamed_file_path = path.join(path.dirname(file_path), f"{unique_name}{path.splitext(file_path)[1]}")
-    move(file_path, renamed_file_path)
-    output_path = path.join(extracted_addons_path, unique_name)
-    makedirs(output_path, exist_ok=True)
+    if current_platform not in platform_paths:
+        raise Exception(f"Unsupported platform: {current_platform}.\nSupported platforms are: Windows, Linux, macOS.")
 
-    try:
-        if path.splitext(renamed_file_path)[1] == ".gma":
-            run(
-                [
-                    gmad_executable,
-                    "extract",
-                    "-file",
-                    renamed_file_path,
-                    "-out",
-                    output_path,
-                ],
-                check=True,
-            )
-        else:
-            run(
-                [seven_zip_executable, "x", renamed_file_path, f"-o{output_path}"],
-                check=True,
-            )
-            for extracted_file in listdir(output_path):
-                extracted_file_path = path.join(output_path, extracted_file)
-                if path.isfile(extracted_file_path) and not path.splitext(extracted_file_path)[1]:
-                    new_gma_path = f"{extracted_file_path}.gma"
-                    rename(extracted_file_path, new_gma_path)
-                    extract_gma_bin(
-                        new_gma_path,
-                        extracted_addons_path,
-                        leftover_path,
-                        gmad_executable,
-                        seven_zip_executable,
-                    )
-    except CalledProcessError as e:
-        print(f"Extraction failed for {renamed_file_path}: {e}")
+    exec_paths = {
+        exe: path.join(base_path, current_platform, exe_name)
+        for exe, exe_name in platform_paths[current_platform].items()
+    }
 
-    move(renamed_file_path, path.join(leftover_path, path.basename(renamed_file_path)))
+    for exe, exe_path in exec_paths.items():
+        if not path.exists(exe_path):
+            exec_paths[exe] = input(f"Could not find {exe} at {exe_path}.\nProvide the full path to the {exe} executable: ").strip()
 
-def remove_empty_folders(directory):
-    for root, dirs, _ in walk(directory, topdown=False):
-        for directory_name in dirs:
-            directory_path = path.join(root, directory_name)
-            if not listdir(directory_path):
-                rmdir(directory_path)
+    return exec_paths
+
+def generate_unique_name(file_path):
+    return path.join(path.dirname(file_path), uuid4().hex + path.splitext(file_path)[-1])
+
+def find_files_with_extension(extension, start_dir):
+    files = []
+    for entry in scandir(start_dir):
+        if entry.is_dir() and entry.name not in ['_internal', 'Bin', 'Leftover', 'Extracted-Addons']:
+            files.extend(find_files_with_extension(extension, entry.path))
+        elif entry.is_file() and entry.name.endswith(extension):
+            files.append(entry.path)
+    return files
+
+def add_extension_to_files_without_format(start_dir):
+    for entry in scandir(start_dir):
+        if entry.is_dir() and entry.name not in ['_internal', 'Bin', 'Leftover', 'Extracted-Addons']:
+            add_extension_to_files_without_format(entry.path)
+        elif entry.is_file() and '.' not in entry.name:
+            new_path = entry.path + '.gma'
+            rename(entry.path, new_path)
+
+def extract_bin_file(bin_file, seven_zip_path):
+    run([seven_zip_path, 'x', bin_file, '-o' + path.dirname(bin_file)], stdout=DEVNULL, stderr=DEVNULL)
+
+def extract_gma_file(gma_file, fastgmad_path):
+    addon_folder = path.join(path.dirname(gma_file), 'Extracted-Addons', uuid4().hex)
+    makedirs(addon_folder, exist_ok=True)
+    run([fastgmad_path, 'extract', '-file', gma_file, '-out', addon_folder], stdout=DEVNULL, stderr=DEVNULL)
+
+def move_files_to_leftover(files, leftover_dir):
+    makedirs(leftover_dir, exist_ok=True)
+    for file in files:
+        destination = path.join(leftover_dir, path.basename(file))
+        if path.exists(destination):
+            destination = generate_unique_name(destination)
+        move(file, destination)
+
+def remove_empty_directories(start_dir):
+    for entry in scandir(start_dir):
+        if entry.is_dir() and entry.name not in ['_internal', 'Bin', 'Leftover', 'Extracted-Addons']:
+            remove_empty_directories(entry.path)
+            if not listdir(entry.path):
+                rmdir(entry.path)
 
 def main():
-    start_time = time()
-    current_directory = getcwd()
-    extracted_addons_path = path.join(current_directory, "Extracted-Addons")
-    leftover_path = path.join(current_directory, "Leftover")
-    makedirs(extracted_addons_path, exist_ok=True)
-    makedirs(leftover_path, exist_ok=True)
+    exec_paths = get_executable_paths()
+    seven_zip_path = exec_paths['7zz']
+    fastgmad_path = exec_paths['fastgmad']
 
-    gmad_executable = get_executable("fastgmad")
-    seven_zip_executable = get_executable("7zz")
+    bin_files = find_files_with_extension('.bin', '.')
+    workers = max(1, cpu_count())
 
-    files_to_extract = [
-        path.join(root, file)
-        for root, _, files in walk(current_directory)
-        for file in files
-        if path.splitext(file)[1] in {".gma", ".bin"}
-    ]
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        executor.map(lambda bin_file: extract_bin_file(bin_file, seven_zip_path), bin_files)
 
-    if not files_to_extract:
-        return
+    add_extension_to_files_without_format('.')
 
-    with ThreadPoolExecutor() as executor:
-        executor.map(
-            lambda file_path: extract_gma_bin(
-                file_path,
-                extracted_addons_path,
-                leftover_path,
-                gmad_executable,
-                seven_zip_executable,
-            ),
-            files_to_extract,
-        )
+    gma_files = find_files_with_extension('.gma', '.')
 
-    remove_empty_folders(current_directory)
-    print(f"Processed {len(files_to_extract)} files in {time() - start_time:.2f} seconds.")
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        executor.map(lambda gma_file: extract_gma_file(gma_file, fastgmad_path), gma_files)
+
+    move_files_to_leftover(bin_files + gma_files, 'Leftover')
+
+    remove_empty_directories('.')
 
 if __name__ == "__main__":
     main()
