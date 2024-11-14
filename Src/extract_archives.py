@@ -1,4 +1,3 @@
-from time import time
 from uuid import uuid4
 from zipfile import ZipFile
 from rarfile import RarFile
@@ -36,7 +35,6 @@ def process_archive(archive, leftover_path):
     rename(archive, path.join(leftover_path, path.basename(archive)))
 
 def main():
-    start_time = time()
     archive_format = set(archive_handlers.keys())
     current_directory = getcwd()
     leftover_path = path.join(current_directory, "Leftover")
@@ -50,13 +48,10 @@ def main():
         not any(excluded_directory in path.join(current_directory, file).split(path.sep) for excluded_directory in excluded_directories)
     ]
 
-    num_cores = cpu_count()
+    workers = max(1, cpu_count())
 
-    with ThreadPoolExecutor(max_workers=num_cores) as executor:
+    with ThreadPoolExecutor(max_workers=workers) as executor:
         executor.map(lambda archive: process_archive(archive, leftover_path), archives)
-
-    end_time = time()
-    print(f"Processed {len(archives)} archives in {end_time - start_time:.2f} seconds.")
 
 if __name__ == "__main__":
     main()
