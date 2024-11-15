@@ -5,7 +5,7 @@ from platform import system, architecture, release
 from extract_addons import main as extract_addons
 from extract_archives import main as extract_archives
 
-version = f"v2.2.2 ({uuid4().hex[:7]})"
+version = f"v2.3.0 ({uuid4().hex[:7]})"
 build_date = datetime.now().strftime("%Y-%m-%d (%A, %B %d, %Y)")
 rarfile_version = "4.2"
 py7zr_version = "0.22.0"
