@@ -124,6 +124,3 @@ def main():
     print(f"Total .bin files processed: {bin_count}")
     print(f"Total .gma files processed: {gma_count}")
     print(f"Total time taken: {elapsed_time:.2f} seconds")
-
-if __name__ == "__main__":
-    main()
