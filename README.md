@@ -73,4 +73,4 @@ This project is licensed under the [GNU General Public License v3.0](LICENSE).
 - **[Py7zr](https://pypi.org/project/py7zr/):** For 7z file extraction.
 - **[RarFile](https://pypi.org/project/rarfile/):** For rar file extraction.
 - **[FastGMAD](https://github.com/WilliamVenner/fastgmad):** Fast reimplementation of gmad. (Forked)
-- **[7zip](https://www.7-zip.org/):** For extracting .bin files.
+- **[7-zip](https://www.7-zip.org/):** For extracting .bin files.
