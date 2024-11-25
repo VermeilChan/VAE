@@ -74,4 +74,4 @@ This project is licensed under the [GNU General Public License v3.0](LICENSE).
 - **[RarFile](https://pypi.org/project/rarfile/):** For rar file extraction.
 - **[FastGMAD](https://github.com/WilliamVenner/fastgmad):** Fast reimplementation of gmad. (Forked)
 - **[7-zip](https://www.7-zip.org/):** For extracting .bin files.
-- **[Program Icon](https://evangelion.fandom.com/wiki/Adam):** From Evangelion (Adam). (Peak anime!!)
+- **[Program Icon](https://evangelion.fandom.com/wiki/Adam):** From Neon Genesis Evangelion (Adam). (Peak anime!!)
