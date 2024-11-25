@@ -73,7 +73,8 @@ def main():
 
     print("\nSummary:")
     for archive_format, count in archive_count.items():
-        print(f"Total {archive_format} files processed: {count}")
+        if count > 0:
+            print(f"Total {archive_format} files processed: {count}")
 
     elapsed_time = time() - start_time
     print(f"Total time taken: {elapsed_time:.2f} seconds")
