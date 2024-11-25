@@ -5,7 +5,7 @@ from platform import system, architecture, release
 from extract_addons import main as extract_addons
 from extract_archives import main as extract_archives
 
-version = f"v2.3.0 ({uuid4().hex[:7]})"
+version = f"v2.3.1 ({uuid4().hex[:7]})"
 build_date = datetime.now().strftime("%Y-%m-%d (%A, %B %d, %Y)")
 rarfile_version = "4.2"
 py7zr_version = "0.22.0"
@@ -27,7 +27,7 @@ def display_menu():
     print(
         "Select an option:\n"
         "1. Extract addons (GMA, BIN)\n"
-        "2. Extract archives (ZIP, RAR, 7Z, TAR)\n"
+        "2. Extract archives (ZIP, RAR, 7Z, TAR, TAR.XZ, TAR.GZ)\n"
         "3. Help\n"
         "4. Exit\n"
     )
@@ -36,7 +36,7 @@ def display_help():
     print(
         "\nHelp:\n"
         "1. Extract addons - For GMA and BIN files.\n"
-        "2. Extract archives - Extracts archive formats (ZIP, RAR, 7Z, TAR). Mainly for 3rd party.\n"
+        "2. Extract archives - Extracts archive formats (ZIP, RAR, 7Z, TAR, TAR.XZ, TAR.GZ). Mainly for 3rd party.\n"
         "3. Help - Displays this info.\n"
         "4. Exit - Closes the program.\n"
     )
@@ -57,11 +57,13 @@ def handle_choice(choice):
 def get_linux_info():
     with open("/etc/os-release") as f:
         os_info = dict(line.strip().split('=') for line in f)
-    return os_info.get("PRETTY_NAME") or system(), os_info.get("VERSION") or release()
+    return os_info.get("PRETTY_NAME", "").strip('"')
 
 def get_os_info():
     os_name = system()
-    return f"{os_name} {release()}" if os_name != "Linux" else get_linux_info().get("PRETTY_NAME", os_name)
+    if os_name != "Linux":
+        return f"{os_name} {release()}"
+    return get_linux_info() or os_name
 
 def main():
     try:
