@@ -3,7 +3,7 @@ name: Build Windows
 on:
   push:
     branches:
-      - main
+      - beta
     paths:
       - '.github/workflows/**'
       - 'Src/**'
@@ -15,16 +15,16 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
       - name: Get Shortened Commit SHA
         id: shorten_commit_sha
-        uses: iendeavor/shorten-commit-sha@v2.0.0
+        uses: iendeavor/shorten-commit-sha@v2.0.3
         with:
           length: 7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.3.0
         with:
           python-version: '3.9.13'
           architecture: 'x64'
@@ -52,7 +52,7 @@ jobs:
           Remove-Item -Path 'dist\VAE\Bin\Darwin\7zz' -Force
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.3
         with:
           name: VAE-${{ steps.shorten_commit_sha.outputs.shortened_commit_sha }}-Windows-x64
           path: dist/VAE
