@@ -6,10 +6,10 @@
 
 - 🖥️ Cross-Platform: Works on Windows, macOS, and Linux.
 - 📦 Addon Extraction: Extract both modern `.gma` and legacy `.bin` addon formats.
-- 🔄 Archive Extraction: Supports archive formats (`.zip`, `.rar`, `.7z`, `.tar`).
+- 🔄 Archive Extraction: Supports archive formats (`.zip`, `.rar`, `.7z`, `.tar`, `tar.gz` and `tar.xz`).
 - ⚡ Multithreading: Utilizes concurrent processing to speed up extraction.
 - 🛠️ Easy to Use: A simple command-line interface.
-- 🔄 GWTool Replacement: **VAE** is a drop-in replacement for GWTool. _(I think)_
+- 🔄 GWTool Replacement: **VAE** is a drop-in replacement for GWTool.
 
 ## Requirements
 
