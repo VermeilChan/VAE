@@ -1,12 +1,10 @@
 import sys
-from uuid import uuid4
-from datetime import datetime
 from platform import system, architecture, release
 from extract_addons import main as extract_addons
 from extract_archives import main as extract_archives
 
-version = f"v2.3.1 ({uuid4().hex[:7]})"
-build_date = datetime.now().strftime("%Y-%m-%d (%A, %B %d, %Y)")
+version = f"v2.3.1 (ef4fe69)"
+build_date = "2024-11-26 (Tuesday, November 26, 2024)"
 rarfile_version = "4.2"
 py7zr_version = "0.22.0"
 pyinstaller_version = "6.11.1"
