@@ -9,7 +9,7 @@
 - 🔄 Archive Extraction: Supports archive formats (`.zip`, `.rar`, `.7z`, `.tar`, `.tar.gz` and `.tar.xz`).
 - ⚡ Multithreading: Utilizes concurrent processing to speed up extraction.
 - 🛠️ Easy to Use: A simple command-line interface.
-- 🔄 GWTool Replacement: **VAE** is a drop-in replacement for GWTool.
+- 🔄 GWTool Replacement: Drop-in replacement for GWTool.
 
 ## Requirements
 
