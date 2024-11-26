@@ -8,6 +8,7 @@ from concurrent.futures import ThreadPoolExecutor
 from os import path, scandir, rename, makedirs, rmdir, listdir
 
 current_platform = system()
+excluded_directories = ['Bin', 'Leftover', '_internal', 'Extracted-Addons']
 
 def get_executable_paths():
     base_path = 'Bin'
@@ -37,7 +38,7 @@ def generate_unique_name(file_path):
 def find_files_with_extension(extension, start_dir):
     files = []
     for entry in scandir(start_dir):
-        if entry.is_dir() and entry.name not in ['_internal', 'Bin', 'Leftover', 'Extracted-Addons']:
+        if entry.is_dir() and entry.name not in excluded_directories:
             files.extend(find_files_with_extension(extension, entry.path))
         elif entry.is_file() and entry.name.endswith(extension):
             files.append(entry.path)
@@ -45,7 +46,7 @@ def find_files_with_extension(extension, start_dir):
 
 def add_extension_to_files_without_format(start_dir):
     for entry in scandir(start_dir):
-        if entry.is_dir() and entry.name not in ['_internal', 'Bin', 'Leftover', 'Extracted-Addons']:
+        if entry.is_dir() and entry.name not in excluded_directories:
             add_extension_to_files_without_format(entry.path)
         elif entry.is_file() and '.' not in entry.name:
             new_path = entry.path + '.gma'
@@ -71,7 +72,7 @@ def move_files_to_leftover(files, leftover_dir):
 
 def remove_empty_directories(start_dir):
     for entry in scandir(start_dir):
-        if entry.is_dir() and entry.name not in ['_internal', 'Bin', 'Leftover', 'Extracted-Addons']:
+        if entry.is_dir() and entry.name not in excluded_directories:
             remove_empty_directories(entry.path)
             if not listdir(entry.path):
                 rmdir(entry.path)
