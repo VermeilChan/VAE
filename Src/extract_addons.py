@@ -48,7 +48,7 @@ def add_extension_to_files_without_format(start_dir):
     for entry in scandir(start_dir):
         if entry.is_dir() and entry.name not in excluded_directories:
             add_extension_to_files_without_format(entry.path)
-        elif entry.is_file() and '.' not in entry.name:
+        elif entry.is_file() and '.' not in entry.name and entry.name not in ['VAE']:
             new_path = entry.path + '.gma'
             rename(entry.path, new_path)
 
