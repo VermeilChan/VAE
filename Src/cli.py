@@ -26,8 +26,8 @@ def display_info():
 def display_menu():
     print(
         "Select an option:\n"
-        "1. Extract addons (GMA, BIN)\n"
-        "2. Extract archives (ZIP, RAR, 7Z, TAR, TAR.XZ, TAR.GZ, TAR.BZ2)\n"
+        "1. Extract addons\n"
+        "2. Extract archives\n"
         "3. Help\n"
         "4. Exit\n"
     )
