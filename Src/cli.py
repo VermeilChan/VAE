@@ -1,7 +1,7 @@
 import sys
 from uuid import uuid4
 from datetime import datetime
-from platform import system, architecture, release
+from platform import system, architecture, release, freedesktop_os_release
 from extract_addons import main as extract_addons
 from extract_archives import main as extract_archives
 
@@ -27,7 +27,7 @@ def display_menu():
     print(
         "Select an option:\n"
         "1. Extract addons (GMA, BIN)\n"
-        "2. Extract archives (ZIP, RAR, 7Z, TAR, TAR.XZ, TAR.GZ)\n"
+        "2. Extract archives (ZIP, RAR, 7Z, TAR, TAR.XZ, TAR.GZ, TAR.BZ2)\n"
         "3. Help\n"
         "4. Exit\n"
     )
@@ -36,7 +36,7 @@ def display_help():
     print(
         "\nHelp:\n"
         "1. Extract addons - For GMA and BIN files.\n"
-        "2. Extract archives - Extracts archive formats (ZIP, RAR, 7Z, TAR, TAR.XZ, TAR.GZ). Mainly for 3rd party.\n"
+        "2. Extract archives - Extracts archive formats (ZIP, RAR, 7Z, TAR, TAR.XZ, TAR.GZ, TAR.BZ2). Mainly for 3rd party.\n"
         "3. Help - Displays this info.\n"
         "4. Exit - Closes the program.\n"
     )
@@ -54,16 +54,26 @@ def handle_choice(choice):
     else:
         print("Invalid choice. Please enter a number from 1 to 4.")
 
-def get_linux_info():
-    with open("/etc/os-release") as f:
-        os_info = dict(line.strip().split('=') for line in f)
-    return os_info.get("PRETTY_NAME", "").strip('"')
-
 def get_os_info():
-    os_name = system()
-    if os_name != "Linux":
+    try:
+        os_name = system()
+
+        if os_name == "Linux":
+            try:
+                os_release_info = freedesktop_os_release()
+                pretty_name = os_release_info.get("PRETTY_NAME", "").strip()
+                version = os_release_info.get("VERSION", "").strip()
+                if pretty_name or version:
+                    return f"{pretty_name} {version}".strip()
+            except Exception:
+                pass
+
+            return f"{os_name} {release()}"
+
         return f"{os_name} {release()}"
-    return get_linux_info() or os_name
+
+    except Exception as e:
+        return f"Unable to get OS information (っ °Д °;)っ"
 
 def main():
     try:
