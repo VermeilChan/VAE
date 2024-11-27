@@ -16,6 +16,7 @@ archive_handlers = {
     ".tar": TarFile,
     ".gz": TarFile,
     ".xz": TarFile,
+    ".bz2": TarFile,
 }
 
 def extract_archive(archive_path, archive_count):
@@ -64,7 +65,7 @@ def main():
         print("No archives to process.")
         return
 
-    archive_count = {".zip": 0, ".rar": 0, ".7z": 0, ".tar": 0, ".gz": 0, ".xz": 0,}
+    archive_count = {".zip": 0, ".rar": 0, ".7z": 0, ".tar": 0, ".gz": 0, ".xz": 0, ".bz2": 0,}
 
     workers = max(1, cpu_count())
 
