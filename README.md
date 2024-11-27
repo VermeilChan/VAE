@@ -6,7 +6,7 @@
 
 - 🖥️ Cross-Platform: Works on Windows, macOS, and Linux.
 - 📦 Addon Extraction: Extract both modern `.gma` and legacy `.bin` addon formats.
-- 🔄 Archive Extraction: Supports archive formats (`.zip`, `.rar`, `.7z`, `.tar`, `.tar.gz` and `.tar.xz`).
+- 🔄 Archive Extraction: Supports archive formats (`.zip`, `.rar`, `.7z`, `.tar`, `.tar.gz`, `.tar.xz` and `.tar.bz2`).
 - ⚡ Multithreading: Utilizes concurrent processing to speed up extraction.
 - 🛠️ Easy to Use: A simple command-line interface.
 - 🔄 GWTool Replacement: Drop-in replacement for GWTool.
@@ -50,7 +50,7 @@ Upon launching the program, you will be presented with two options:
 
 #### Option 2: Extract Archives
 
-- This option scans the current directory for archive files (e.g., `.zip`, `.rar`, `.7z`, `.tar`, `.tar.xz` and `.tar.xz`) and extracts them.
+- This option scans the current directory for archive files (e.g., `.zip`, `.rar`, `.7z`, `.tar`, `.tar.xz`, `.tar.xz` and `.tar.bz2`) and extracts them.
 
 - If you want to free up some space, you can remove the `Leftover` folder, which contains the `.gma` and `.bin` and archives.
 
