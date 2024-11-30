@@ -6,6 +6,7 @@ from subprocess import run, DEVNULL
 from multiprocessing import cpu_count
 from concurrent.futures import ThreadPoolExecutor
 from os import path, scandir, rename, makedirs, rmdir, listdir
+from cli import format_time
 
 current_platform = system()
 excluded_directories = ['Bin', 'Leftover', '_internal', 'Extracted-Addons']
@@ -79,18 +80,6 @@ def remove_empty_directories(start_dir):
             if not listdir(entry.path):
                 rmdir(entry.path)
 
-def convert_time(seconds):
-    if seconds < 60:
-        return f"{seconds:.2f}s"
-    elif seconds < 3600:
-        minutes = seconds // 60
-        remaining_seconds = seconds % 60
-        return f"{minutes}m {remaining_seconds:.2f}s"
-    else:
-        hours = seconds // 3600
-        remaining_minutes = (seconds % 3600) // 60
-        return f"{hours}h {remaining_minutes}m"
-
 def main():
     start_time = time()
     exec_paths = get_executable_paths()
@@ -133,7 +122,7 @@ def main():
 
     end_time = time()
     elapsed_time = end_time - start_time
-    formatted_time = convert_time(elapsed_time)
+    formatted_time = format_time(elapsed_time)
 
     print("\nSummary:")
     for addon_format, count in addon_formats_count.items():

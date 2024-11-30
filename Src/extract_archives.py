@@ -8,6 +8,7 @@ from tarfile import open as TarFile
 from os import path, makedirs, walk
 from multiprocessing import cpu_count
 from concurrent.futures import ThreadPoolExecutor
+from cli import format_time
 
 archive_handlers = {
     ".zip": ZipFile,
@@ -57,18 +58,6 @@ def process_archives():
     
     return archives
 
-def convert_time(seconds):
-    if seconds < 60:
-        return f"{seconds:.2f}s"
-    elif seconds < 3600:
-        minutes = seconds // 60
-        remaining_seconds = seconds % 60
-        return f"{minutes}m {remaining_seconds:.2f}s"
-    else:
-        hours = seconds // 3600
-        remaining_minutes = (seconds % 3600) // 60
-        return f"{hours}h {remaining_minutes}m"
-
 def main():
     start_time = time()
 
@@ -90,6 +79,6 @@ def main():
             print(f"Total {archive_format} files processed: {count}")
 
     elapsed_time = time() - start_time
-    formatted_time = convert_time(elapsed_time)
+    formatted_time = format_time(elapsed_time)
 
     print(f"Total time taken: {formatted_time}")
