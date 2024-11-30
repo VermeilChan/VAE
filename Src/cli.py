@@ -5,12 +5,12 @@ from platform import system, architecture, release, freedesktop_os_release
 from extract_addons import main as extract_addons
 from extract_archives import main as extract_archives
 
-version = f"v2.3.1 ({uuid4().hex[:7]})"
+version = f"v2.4.0 ({uuid4().hex[:7]})"
 build_date = datetime.now().strftime("%Y-%m-%d (%A, %B %d, %Y)")
 rarfile_version = "4.2"
 py7zr_version = "0.22.0"
 pyinstaller_version = "6.11.1"
-seven_zip_version = "24.08"
+seven_zip_version = "24.09"
 
 def display_info():
     system_info = get_os_info()
@@ -74,6 +74,19 @@ def get_os_info():
 
     except Exception as e:
         return f"Unable to get OS information (っ °Д °;)っ"
+
+def format_time(seconds):
+    hours = seconds // 3600
+    remaining_seconds = seconds % 3600
+    minutes = remaining_seconds // 60
+    seconds = remaining_seconds % 60
+
+    if hours > 0:
+        return f"{int(hours)}h {int(minutes)}m {seconds:.3f}s"
+    elif minutes > 0:
+        return f"{int(minutes)}m {seconds:.3f}s"
+    else:
+        return f"{seconds:.3f}s"
 
 def main():
     try:
