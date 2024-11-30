@@ -1,6 +1,6 @@
 # Vermeil's Addon Extractor (VAE)
 
-**VAE** is a command-line tool for users of Garry's Mod who need to extract content from addon files. This utility supports both modern `.gma` addons and legacy `.bin` addons, an essential tool for players who download addons from sources such as SteamCMD, third-party programs, websites, or for those using cracked versions of the game.
+**VAE** is a command-line tool for players of Garry's Mod who need to extract content from addon files. This utility supports both modern `.gma` addons and legacy `.bin` addons, a tool for players who download addons from sources such as SteamCMD, third-party programs, websites, or for those using cracked versions of the game.
 
 ## Features
 
@@ -45,14 +45,14 @@ Upon launching the program, you will be presented with two options:
 
 #### Option 1: Extract Addons
 
-- This option scans the current directory and subdirectories for `.gma` and `.bin` files and extracts them using `fastgmad`.
-  - Navigate to the `Extracted-Addons` folder, and copy the folders to your Garry's Mod directory. Enjoy your addons!
+- This option scans the current directory and subdirectories for `.gma` and `.bin` files and extracts them.
+  - Navigate to the `Extracted-Addons` folder, and copy the folders to your Garry's Mod Addon directory.
 
 #### Option 2: Extract Archives
 
-- This option scans the current directory for archive files (e.g., `.zip`, `.rar`, `.7z`, `.tar`, `.tar.xz`, `.tar.xz` and `.tar.bz2`) and extracts them.
+- This option scans the current directory for archive files (`.zip`, `.rar`, `.7z`, `.tar`, `.tar.xz`, `.xz` and `.bz2`) and extracts them.
 
-- If you want to free up some space, you can remove the `Leftover` folder, which contains the `.gma` and `.bin` and archives.
+- You can remove the `Leftover` folder, which contains the `.gma` and `.bin` and archives to free up some space.
 
 ## Building VAE
 
