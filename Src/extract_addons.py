@@ -6,6 +6,7 @@ from subprocess import run, DEVNULL
 from multiprocessing import cpu_count
 from concurrent.futures import ThreadPoolExecutor
 from os import path, scandir, rename, makedirs, rmdir, listdir
+from utils import format_time
 
 current_platform = system()
 excluded_directories = ['Bin', 'Leftover', '_internal', 'Extracted-Addons']
@@ -48,19 +49,21 @@ def add_extension_to_files_without_format(start_dir):
     for entry in scandir(start_dir):
         if entry.is_dir() and entry.name not in excluded_directories:
             add_extension_to_files_without_format(entry.path)
-        elif entry.is_file() and '.' not in entry.name:
+        elif entry.is_file() and '.' not in entry.name and entry.name not in ['VAE']:
             new_path = entry.path + '.gma'
             rename(entry.path, new_path)
 
-def extract_bin_file(bin_file, seven_zip_path):
+def extract_bin_file(bin_file, seven_zip_path, addon_formats_count):
     print(f"Extracting {bin_file}...")
     run([seven_zip_path, 'x', bin_file, '-o' + path.dirname(bin_file)], stdout=DEVNULL, stderr=DEVNULL)
+    addon_formats_count[".bin"] += 1
 
-def extract_gma_file(gma_file, fastgmad_path):
+def extract_gma_file(gma_file, fastgmad_path, addon_formats_count):
     addon_folder = path.join('Extracted-Addons', uuid4().hex)
     makedirs(addon_folder, exist_ok=True)
     print(f"Extracting {gma_file} to {addon_folder}...")
     run([fastgmad_path, 'extract', '-file', gma_file, '-out', addon_folder], stdout=DEVNULL, stderr=DEVNULL)
+    addon_formats_count[".gma"] += 1
 
 def move_files_to_leftover(files, leftover_dir):
     makedirs(leftover_dir, exist_ok=True)
@@ -86,31 +89,30 @@ def main():
     base_extract_dir = path.join('Extracted-Addons')
     makedirs(base_extract_dir, exist_ok=True)
 
+    addon_formats_count = {".bin": 0, ".gma": 0}
+
     print("Searching for .bin files...")
     bin_files = find_files_with_extension('.bin', '.')
-    bin_count = len(bin_files)
-    if bin_count == 0:
-        print("No .bin files found.")
+    if bin_files:
+        workers = max(1, cpu_count())
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            executor.map(lambda bin_file: extract_bin_file(bin_file, seven_zip_path, addon_formats_count), bin_files)
+        print(f"Found {len(bin_files)} .bin files.")
     else:
-        print(f"Found {bin_count} .bin files.")
-
-    workers = max(1, cpu_count())
-    with ThreadPoolExecutor(max_workers=workers) as executor:
-        executor.map(lambda bin_file: extract_bin_file(bin_file, seven_zip_path), bin_files)
+        print("No .bin files found.")
 
     print("Adding .gma extension to files without extensions...")
     add_extension_to_files_without_format('.')
 
     print("Searching for .gma files...")
     gma_files = find_files_with_extension('.gma', '.')
-    gma_count = len(gma_files)
-    if gma_count == 0:
-        print("No .gma files found.")
+    if gma_files:
+        workers = max(1, cpu_count())
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            executor.map(lambda gma_file: extract_gma_file(gma_file, fastgmad_path, addon_formats_count), gma_files)
+        print(f"Found {len(gma_files)} .gma files.")
     else:
-        print(f"Found {gma_count} .gma files.")
-
-    with ThreadPoolExecutor(max_workers=workers) as executor:
-        executor.map(lambda gma_file: extract_gma_file(gma_file, fastgmad_path), gma_files)
+        print("No .gma files found.")
 
     print("Moving leftover files...")
     move_files_to_leftover(bin_files + gma_files, 'Leftover')
@@ -120,8 +122,10 @@ def main():
 
     end_time = time()
     elapsed_time = end_time - start_time
+    formatted_time = format_time(elapsed_time)
 
     print("\nSummary:")
-    print(f"Total .bin files processed: {bin_count}")
-    print(f"Total .gma files processed: {gma_count}")
-    print(f"Total time taken: {elapsed_time:.2f} seconds")
+    for addon_format, count in addon_formats_count.items():
+        if count > 0:
+            print(f"Total {addon_format} files processed: {count}")
+    print(f"Total time taken: {formatted_time}")

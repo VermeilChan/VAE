@@ -8,6 +8,7 @@ from tarfile import open as TarFile
 from os import path, makedirs, walk
 from multiprocessing import cpu_count
 from concurrent.futures import ThreadPoolExecutor
+from utils import format_time
 
 archive_handlers = {
     ".zip": ZipFile,
@@ -16,6 +17,7 @@ archive_handlers = {
     ".tar": TarFile,
     ".gz": TarFile,
     ".xz": TarFile,
+    ".bz2": TarFile,
 }
 
 def extract_archive(archive_path, archive_count):
@@ -64,7 +66,7 @@ def main():
         print("No archives to process.")
         return
 
-    archive_count = {".zip": 0, ".rar": 0, ".7z": 0, ".tar": 0, ".gz": 0, ".xz": 0,}
+    archive_count = {".zip": 0, ".rar": 0, ".7z": 0, ".tar": 0, ".gz": 0, ".xz": 0, ".bz2": 0,}
 
     workers = max(1, cpu_count())
 
@@ -77,4 +79,6 @@ def main():
             print(f"Total {archive_format} files processed: {count}")
 
     elapsed_time = time() - start_time
-    print(f"Total time taken: {elapsed_time:.2f} seconds")
+    formatted_time = format_time(elapsed_time)
+
+    print(f"Total time taken: {formatted_time}")

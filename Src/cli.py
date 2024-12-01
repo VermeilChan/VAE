@@ -1,14 +1,14 @@
 import sys
-from platform import system, architecture, release
+from platform import system, architecture, release, freedesktop_os_release
 from extract_addons import main as extract_addons
 from extract_archives import main as extract_archives
 
-version = f"v2.3.1 (ef4fe69)"
-build_date = "2024-11-26 (Tuesday, November 26, 2024)"
+version = f"v2.4.0 (2b2f2a3)"
+build_date = "2024-12-01 (Sunday, December 01, 2024)"
 rarfile_version = "4.2"
 py7zr_version = "0.22.0"
 pyinstaller_version = "6.11.1"
-seven_zip_version = "24.08"
+seven_zip_version = "24.09"
 
 def display_info():
     system_info = get_os_info()
@@ -24,8 +24,8 @@ def display_info():
 def display_menu():
     print(
         "Select an option:\n"
-        "1. Extract addons (GMA, BIN)\n"
-        "2. Extract archives (ZIP, RAR, 7Z, TAR, TAR.XZ, TAR.GZ)\n"
+        "1. Extract addons\n"
+        "2. Extract archives\n"
         "3. Help\n"
         "4. Exit\n"
     )
@@ -34,7 +34,7 @@ def display_help():
     print(
         "\nHelp:\n"
         "1. Extract addons - For GMA and BIN files.\n"
-        "2. Extract archives - Extracts archive formats (ZIP, RAR, 7Z, TAR, TAR.XZ, TAR.GZ). Mainly for 3rd party.\n"
+        "2. Extract archives - Extracts archive formats (ZIP, RAR, 7Z, TAR, TAR.XZ, TAR.GZ, TAR.BZ2). Mainly for 3rd party.\n"
         "3. Help - Displays this info.\n"
         "4. Exit - Closes the program.\n"
     )
@@ -52,16 +52,26 @@ def handle_choice(choice):
     else:
         print("Invalid choice. Please enter a number from 1 to 4.")
 
-def get_linux_info():
-    with open("/etc/os-release") as f:
-        os_info = dict(line.strip().split('=') for line in f)
-    return os_info.get("PRETTY_NAME", "").strip('"')
-
 def get_os_info():
-    os_name = system()
-    if os_name != "Linux":
+    try:
+        os_name = system()
+
+        if os_name == "Linux":
+            try:
+                os_release_info = freedesktop_os_release()
+                pretty_name = os_release_info.get("PRETTY_NAME", "").strip()
+                version = os_release_info.get("VERSION", "").strip()
+                if pretty_name or version:
+                    return f"{pretty_name} {version}".strip()
+            except Exception:
+                pass
+
+            return f"{os_name} {release()}"
+
         return f"{os_name} {release()}"
-    return get_linux_info() or os_name
+
+    except Exception as e:
+        return f"Unable to get OS information (っ °Д °;)っ"
 
 def main():
     try:
