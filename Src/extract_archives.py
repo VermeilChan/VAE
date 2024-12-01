@@ -8,7 +8,7 @@ from tarfile import open as TarFile
 from os import path, makedirs, walk
 from multiprocessing import cpu_count
 from concurrent.futures import ThreadPoolExecutor
-from cli import format_time
+from utils import format_time
 
 archive_handlers = {
     ".zip": ZipFile,

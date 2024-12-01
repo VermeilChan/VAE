@@ -6,7 +6,7 @@ from subprocess import run, DEVNULL
 from multiprocessing import cpu_count
 from concurrent.futures import ThreadPoolExecutor
 from os import path, scandir, rename, makedirs, rmdir, listdir
-from cli import format_time
+from utils import format_time
 
 current_platform = system()
 excluded_directories = ['Bin', 'Leftover', '_internal', 'Extracted-Addons']
