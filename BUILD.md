@@ -66,7 +66,7 @@ cd VAE
 py -m venv .venv
 .venv/Scripts/activate
 pip install -r requirements.txt
-pyinstaller --noconfirm --onedir --console --icon "Src/Icon/VAE.ico" --name "VAE" --clean --optimize "2" --version-file "version.txt" --add-data "Src/extract_addons.py;." --add-data "Src/extract_archives.py;." --add-data "Src/Bin;Bin/"  "Src/cli.py"
+pyinstaller --noconfirm --onedir --console --icon "Src/Icon/VAE.ico" --name "VAE" --clean --optimize "2" --version-file "version.txt" --add-data "Src/extract_addons.py;." --add-data "Src/extract_archives.py;." --add-data "Src/utils.py;." --add-data "Src/Bin;Bin/"  "Src/cli.py"
 ```
 
 ## Linux/macOS
@@ -77,5 +77,5 @@ cd VAE
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-pyinstaller --noconfirm --onedir --console --name "VAE" --clean --optimize "2" --strip --add-data "Src/extract_addons.py:." --add-data "Src/extract_archives.py:." --add-data "Src/Bin:Bin/"  "Src/cli.py"
+pyinstaller --noconfirm --onedir --console --name "VAE" --strip --clean --optimize "2" --add-data "Src/extract_addons.py:." --add-data "Src/extract_archives.py:." --add-data "Src/utils.py:." --add-data "Src/Bin:Bin/"  "Src/cli.py"
 ```
